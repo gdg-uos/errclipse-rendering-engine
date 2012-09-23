@@ -1,0 +1,7 @@
+package com.errclipse.rmi.interfaces;
+option java_outer_classname = "urlList";
+
+message errorRelationUrls{
+	required int32 errorId = 1;
+	repeated string urls = 2;
+}
