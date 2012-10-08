@@ -32,7 +32,10 @@ public class remoteMethodsTest {
 		try{
 			String serverUrl = "rmi://127.0.0.1/rmiServer";
 			IRemoteMethods s = (IRemoteMethods)Naming.lookup(serverUrl);
-			System.out.println(s.getErrorRelationUrl(sr).getUrls(0));
+			
+			for(String str : s.getErrorRelationUrl(sr).getUrlsList()){
+				System.out.println(str);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}

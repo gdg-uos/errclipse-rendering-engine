@@ -12,7 +12,6 @@ public class registerServer {
         Registry rmiRegistry = LocateRegistry.createRegistry(1099);
         rmiRegistry = LocateRegistry.getRegistry();
         remoteMethods rmm = new remoteMethods();
-        rmiRegistry.rebind("rmiServer",rmm);
 
         logger.info("rmi server thread started");
 
