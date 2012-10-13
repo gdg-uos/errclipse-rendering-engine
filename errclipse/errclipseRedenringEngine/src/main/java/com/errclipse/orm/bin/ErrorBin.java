@@ -4,7 +4,13 @@ public class ErrorBin {
 	int error_id;
 	String level_key;
 	String error_desc;
-	int error_count;
+	int solution_count;
+	
+	public ErrorBin(String level_key, String desc, int count){
+		this.level_key = level_key;
+		this.error_desc = desc;
+		this.solution_count = count;
+	}
 	
 	public int getError_id() {
 		return error_id;
@@ -24,10 +30,10 @@ public class ErrorBin {
 	public void setError_desc(String error_desc) {
 		this.error_desc = error_desc;
 	}
-	public int getError_count() {
-		return error_count;
+	public int getsolution_count() {
+		return solution_count;
 	}
-	public void setError_count(int error_count) {
-		this.error_count = error_count;
+	public void setsolution_count(int solution_count) {
+		this.solution_count = solution_count;
 	}
 }

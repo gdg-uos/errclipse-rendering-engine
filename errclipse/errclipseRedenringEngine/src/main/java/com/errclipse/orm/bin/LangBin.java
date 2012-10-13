@@ -3,11 +3,11 @@ package com.errclipse.orm.bin;
 public class LangBin {
 	int lang_id;
 	String language_desc;
-	long error_count;
+	long solution_count;
 	
 	public LangBin(String desc,long count){
 		this.language_desc = desc;
-		this.error_count = count;
+		this.solution_count = count;
 	}
 	
 	public int getLang_id() {
@@ -22,10 +22,10 @@ public class LangBin {
 	public void setLanguage_desc(String language_desc) {
 		this.language_desc = language_desc;
 	}
-	public long getError_count() {
-		return error_count;
+	public long getsolution_count() {
+		return solution_count;
 	}
-	public void setError_count(long error_count) {
-		this.error_count = error_count;
+	public void setsolution_count(long solution_count) {
+		this.solution_count = solution_count;
 	}
 }

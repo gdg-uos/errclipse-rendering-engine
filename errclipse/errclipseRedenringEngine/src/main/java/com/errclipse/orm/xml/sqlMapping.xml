@@ -5,25 +5,46 @@
 
 <mapper namespace="sqlMapping">
 	<insert id="insertLang" parameterType="com.errclipse.orm.bin.LangBin" keyProperty="lang_id" useGeneratedKeys="true" keyColumn="lang_id" >
-		INSERT IGNORE INTO language (language_desc,error_count ) values (#{language_desc}, #{error_count} );
+		INSERT IGNORE INTO language (language_desc,solution_count ) values (#{language_desc}, #{solution_count} );
 		<selectKey keyProperty="lang_id" resultType="int" order="AFTER">
 			select last_insert_id();
 		</selectKey>
 	</insert>
     <insert id="insertLib" parameterType="com.errclipse.orm.bin.LibraryBin" keyProperty="lib_id"  useGeneratedKeys="true" >
-        INSERT IGNORE INTO library (lib_desc, level_key, lib_id, error_count ) values (#{lib_desc}, #{level_key}, #{lib_id}, #{error_count} );
+        INSERT IGNORE INTO library (lib_desc, level_key, lib_id, solution_count ) values (#{lib_desc}, #{level_key}, #{lib_id}, #{solution_count} );
+        <selectKey keyProperty="lib_id" resultType="int" order="AFTER">
+			select last_insert_id();
+		</selectKey>
     </insert>
     <insert id="insertMethod" parameterType="com.errclipse.orm.bin.MethodBin" keyProperty="method_id"  useGeneratedKeys="true" >
-        INSERT IGNORE INTO method (method_desc, level_key, method_id, error_count ) values (#{method_desc}, #{level_key}, #{method_id}, #{error_count} );
+        INSERT IGNORE INTO method (method_desc, level_key, method_id, solution_count ) values (#{method_desc}, #{level_key}, #{method_id}, #{solution_count} );
+        <selectKey keyProperty="method_id" resultType="int" order="AFTER">
+			select last_insert_id();
+		</selectKey>
     </insert>
     <insert id="insertError" parameterType="com.errclipse.orm.bin.ErrorBin" keyProperty="error_id"  useGeneratedKeys="true" >
-        INSERT IGNORE INTO method (error_desc, level_key, error_id, error_count ) values (#{error_desc}, #{level_key}, #{error_id}, #{error_count} );
+        INSERT IGNORE INTO method (error_desc, level_key, error_id, solution_count ) values (#{error_desc}, #{level_key}, #{error_id}, #{solution_count} );
+        <selectKey keyProperty="error_id" resultType="int" order="AFTER">
+			select last_insert_id();
+		</selectKey>
     </insert>
     <insert id="insertSolution" parameterType="com.errclipse.orm.bin.SolutionBin" keyProperty="solution_id"  useGeneratedKeys="true" >
     	INSERT IGNORE INTO solution (level_key, solution_id, solution_note, global_score,local_score) values (#{level_key}, #{solution_id}, #{solution_note}, #{global_score},#{local_score});
+    	<selectKey keyProperty="solution_id" resultType="int" order="AFTER">
+			select last_insert_id();
+		</selectKey>
     </insert>    
     <select id="selectLang" parameterType="String" resultType="int">
     	SELECT (lang_id) FROM language WHERE language_desc = #{language_desc};
+    </select>   
+    <select id="selectLib" parameterType="String" resultType="int">
+    	SELECT (lib_id) FROM library WHERE language_desc = #{library_desc};
+    </select>
+    <select id="selectMethod" parameterType="String" resultType="int">
+    	SELECT (method_id) FROM method WHERE method_desc = #{method_desc};
+    </select>
+    <select id="selectError" parameterType="String" resultType="int">
+    	SELECT (error_id) FROM error WHERE error_desc = #{error_desc};
     </select>
     <select id="selectSolution" parameterType="String" resultType="java.util.List">
 		SELECT  (solution_id, solution_note) FROM solution WHERE level_key = #{level_key};

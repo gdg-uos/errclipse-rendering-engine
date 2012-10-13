@@ -4,7 +4,13 @@ public class MethodBin {
 	int method_id;
 	String level_key;
 	String method_desc;
-	int error_count;
+	int solution_count;
+	
+	public MethodBin(String level_key, String desc, int count){
+		this.level_key = level_key;
+		this.method_desc = desc;
+		this.solution_count = count;
+	}
 	
 	public int getMethod_id() {
 		return method_id;
@@ -24,11 +30,11 @@ public class MethodBin {
 	public void setMethod_desc(String method_desc) {
 		this.method_desc = method_desc;
 	}
-	public int getError_count() {
-		return error_count;
+	public int getsolution_count() {
+		return solution_count;
 	}
-	public void setError_count(int error_count) {
-		this.error_count = error_count;
+	public void setsolution_count(int solution_count) {
+		this.solution_count = solution_count;
 	}
 	
 }

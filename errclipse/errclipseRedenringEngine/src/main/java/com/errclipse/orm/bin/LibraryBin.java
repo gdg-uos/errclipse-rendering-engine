@@ -4,8 +4,14 @@ public class LibraryBin {
 	int lib_id;
 	String level_key;
 	String lib_desc;
-	long error_count;
-	
+	long solution_count;
+
+	public LibraryBin(String level_key,String desc,long count){
+		this.level_key = level_key;
+		this.lib_desc = desc;
+		this.solution_count = count;
+	}
+
 	public int getLib_id() {
 		return lib_id;
 	}
@@ -24,11 +30,11 @@ public class LibraryBin {
 	public void setLib_desc(String lib_desc) {
 		this.lib_desc = lib_desc;
 	}
-	public long getError_count() {
-		return error_count;
+	public long getsolution_count() {
+		return solution_count;
 	}
-	public void setError_count(long error_count) {
-		this.error_count = error_count;
+	public void setsolution_count(long solution_count) {
+		this.solution_count = solution_count;
 	}
-	
+
 }
