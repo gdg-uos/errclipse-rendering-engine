@@ -1,15 +1,11 @@
 package kr.gdg.uos.errclipse;
 
-import java.util.HashMap;
-
 import kr.gdg.uos.errclipse.HttpRequest.HttpRequest;
-import kr.gdg.uos.errclipse.mysql.MysqlClient;
-
-import org.json.simple.JSONValue;
+import kr.gdg.uos.errclipse.works.LocalData;
 
 
 public class Main {
-
+	
 	/**
 	 * @param args
 	 */
@@ -26,6 +22,10 @@ public class Main {
 		String res = req.send("http://errclipse.appspot.com/", "hey you monkey");
 		
 		System.out.println(res);
+		
+		LocalData localData = new LocalData();
+		
+		localData.getDataFromMySQL();
 		
 		//write the code here (crontab)
 
@@ -61,5 +61,7 @@ public class Main {
 		*
 		*/
 	}
+	
+	 
 
 }

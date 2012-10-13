@@ -105,7 +105,6 @@ public class MysqlClient {
 			}else {
 				val += entry.getValue()+", ";
 			}
-			
 		}
 		
 		cond = cond.substring(0,cond.length()-2);
