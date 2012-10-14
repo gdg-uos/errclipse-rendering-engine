@@ -21,10 +21,12 @@ public class HttpRequest {
 			URLConnection conn = url.openConnection();
 			
 			conn.setDoOutput(true);
-			
 			OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-			osw.write(data);
-			osw.flush();
+			
+			if(data != null){
+				osw.write(data);
+				osw.flush();
+			}
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
 			String res = "";

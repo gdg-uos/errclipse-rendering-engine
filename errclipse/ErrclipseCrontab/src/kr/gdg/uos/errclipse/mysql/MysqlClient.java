@@ -1,5 +1,6 @@
 package kr.gdg.uos.errclipse.mysql;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import LogWriter.LogWriter;
 
 public class MysqlClient {
 	private String hostAddr;
@@ -28,22 +31,23 @@ public class MysqlClient {
 		shcemaName = schema;
 	}
 	
-	public Boolean Initialize(){
+	public Boolean Initialize() throws IOException{
 		try {
 			conn = 
 					DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?user=%s&password=%s", 
 							hostAddr, shcemaName, hostId, hostPw));
 		} catch (SQLException e) {
-			System.out.println("SQLException: " + e.getMessage());
-			System.out.println("SQLState: "+e.getSQLState());
-			System.out.println("VendorError: "+e.getErrorCode());
+			LogWriter writer = LogWriter.getInstance();
+			writer.write("SQLException: " + e.getMessage(), true);
+			writer.write("SQLState: "+e.getSQLState(), true);
+			writer.write("VendorError: "+e.getErrorCode(), true);
 			
 			return false;
 		}
 		return true;
 	}
 	
-	public Object select(String query){
+	public Object select(String query) throws IOException{
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
 		List<HashMap<String, Object>> list = new ArrayList();
@@ -71,9 +75,10 @@ public class MysqlClient {
 			
 			
 		}catch(SQLException e){
-			System.out.println("SQLException: " + e.getMessage());
-		    System.out.println("SQLState: " + e.getSQLState());
-		    System.out.println("VendorError: " + e.getErrorCode());
+			LogWriter writer = LogWriter.getInstance();
+			writer.write("SQLException: " + e.getMessage(), true);
+			writer.write("SQLState: "+e.getSQLState(), true);
+			writer.write("VendorError: "+e.getErrorCode(), true);
 		}finally{
 			if(rs != null){
 				try{
@@ -91,7 +96,7 @@ public class MysqlClient {
 		return list;
 		
 	}
-	public int insert(String targetTable, Map<String, Object> values){
+	public int insert(String targetTable, Map<String, Object> values) throws IOException{
 		String query = "";
 		
 		String cond = "";
@@ -117,9 +122,10 @@ public class MysqlClient {
 			stmt.execute(query);
 			
 		} catch (SQLException e) {
-			System.out.println("SQLException: " + e.getMessage());
-		    System.out.println("SQLState: " + e.getSQLState());
-		    System.out.println("VendorError: " + e.getErrorCode());
+			LogWriter writer = LogWriter.getInstance();
+			writer.write("SQLException: " + e.getMessage(), true);
+			writer.write("SQLState: "+e.getSQLState(), true);
+			writer.write("VendorError: "+e.getErrorCode(), true);
 		}finally{
 			if(stmt != null)
 				try {
@@ -130,7 +136,7 @@ public class MysqlClient {
 		return 0;
 	}
 	
-	public Boolean update(String targetTable, Map<String, Object> values, String targetColumn, Object targetValue){
+	public Boolean update(String targetTable, Map<String, Object> values, String targetColumn, Object targetValue) throws IOException{
 		String query = "";
 		
 		String cond = "";
@@ -164,9 +170,10 @@ public class MysqlClient {
 			stmt.execute(query);
 			
 		} catch (SQLException e) {
-			System.out.println("SQLException: " + e.getMessage());
-		    System.out.println("SQLState: " + e.getSQLState());
-		    System.out.println("VendorError: " + e.getErrorCode());
+			LogWriter writer = LogWriter.getInstance();
+			writer.write("SQLException: " + e.getMessage(), true);
+			writer.write("SQLState: "+e.getSQLState(), true);
+			writer.write("VendorError: "+e.getErrorCode(), true);
 		    return false;
 		}finally{
 			if(stmt != null)
@@ -178,7 +185,7 @@ public class MysqlClient {
 		return true;
 	}
 	
-	public Boolean delete(String targetTable, String targetColumn, Object targetValue){
+	public Boolean delete(String targetTable, String targetColumn, Object targetValue) throws IOException{
 		String query = "DELETE FROM "+targetTable + " WHERE "+targetColumn+" = ";
 		
 		if(targetValue.getClass().getName() == "java.lang.String"){
@@ -194,9 +201,10 @@ public class MysqlClient {
 			stmt.execute(query);
 			
 		} catch (SQLException e) {
-			System.out.println("SQLException: " + e.getMessage());
-		    System.out.println("SQLState: " + e.getSQLState());
-		    System.out.println("VendorError: " + e.getErrorCode());
+			LogWriter writer = LogWriter.getInstance();
+			writer.write("SQLException: " + e.getMessage(), true);
+			writer.write("SQLState: "+e.getSQLState(), true);
+			writer.write("VendorError: "+e.getErrorCode(), true);
 		    return false;
 		}finally{
 			if(stmt != null)
