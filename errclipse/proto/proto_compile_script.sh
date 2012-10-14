@@ -1,3 +1,5 @@
 #!/bin/bash
 
-echo $1 
+DST_DIR=$1
+TARGET=$2
+protoc --java_out=$DST_DIR $TARGET

@@ -1,3 +1,4 @@
+package com.errclipse.rmi.interfaces;
 option java_outer_classname = "GGeneralErrorClazz";
 
 message  ErrorQuery{
