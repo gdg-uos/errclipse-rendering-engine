@@ -1,11 +1,11 @@
 package com.errclipse.rmi.connectionManagement;
 
 import java.rmi.Naming;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.errclipse.rmi.interfaces.ErrorBin.SearchRequest;
 import com.errclipse.rmi.interfaces.IRemoteMethod;
 
 public class remoteMethodsTest {
@@ -25,21 +25,21 @@ public class remoteMethodsTest {
 
 	@Test
 	public void test() {
-		SearchRequest sr = SearchRequest.newBuilder().setQuery("test_query")
-				.setPageNumber(10)
-				.setResultPerPage(20)
-				.build();
-		try{
-			String serverUrl = "rmi://127.0.0.1/rmiServer";
-			IRemoteMethod s = (IRemoteMethod)Naming.lookup(serverUrl);
-			
-			for(String str : s.getErrorRelationUrl(sr).getUrlsList()){
-				System.out.println(str);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
+//		SearchRequest sr = SearchRequest.newBuilder().setQuery("test_query")
+//				.setPageNumber(10)
+//				.setResultPerPage(20)
+//				.build();
+//		try{
+//			String serverUrl = "rmi://127.0.0.1/rmiServer";
+//			IRemoteMethod s = (IRemoteMethod)Naming.lookup(serverUrl);
+//			
+//			for(String str : s.getErrorRelationUrl(sr).getUrlsList()){
+//				System.out.println(str);
+//			}
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+//		
 	}
 
 }

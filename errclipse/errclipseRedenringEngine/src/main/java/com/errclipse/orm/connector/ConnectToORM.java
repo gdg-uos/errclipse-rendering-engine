@@ -1,10 +1,8 @@
 package com.errclipse.orm.connector;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -12,8 +10,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.errclipse.orm.bin.*;
-
-
 
 public class ConnectToORM {
 
@@ -102,5 +98,5 @@ public class ConnectToORM {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

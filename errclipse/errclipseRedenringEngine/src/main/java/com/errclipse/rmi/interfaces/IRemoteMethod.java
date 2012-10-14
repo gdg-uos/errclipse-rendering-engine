@@ -2,12 +2,9 @@ package com.errclipse.rmi.interfaces;
 
 import java.rmi.RemoteException;
 
-import com.errclipse.rmi.interfaces.ErrorBin.SearchRequest;
-import com.errclipse.rmi.interfaces.urlList.errorRelationUrls;
+import com.errclipse.rmi.interfaces.GGeneralErrorClazz.*;
+
 
 public interface IRemoteMethod {
-
-	boolean updateProjectAssets(GProjectSetups projectSetups) throws RemoteException;
-	errorRelationUrls getErrorRelationUrl(SearchRequest errorQuery) throws RemoteException;
-	
+	SolutionResultList getErrorSolution(ErrorQuery query) throws RemoteException;
 }
