@@ -1,7 +1,7 @@
 package com.errclipse.orm.bin;
 
 public class LangBin {
-	int lang_id;
+	int language_id;
 	String language_desc;
 	long solution_count;
 	
@@ -11,10 +11,10 @@ public class LangBin {
 	}
 	
 	public int getLang_id() {
-		return lang_id;
+		return language_id;
 	}
 	public void setLang_id(int lang_id) {
-		this.lang_id = lang_id;
+		this.language_id = lang_id;
 	}
 	public String getLanguage_desc() {
 		return language_desc;

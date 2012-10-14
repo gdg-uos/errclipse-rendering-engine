@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.errclipse.rmi.interfaces.IRemoteMethod;
+import com.errclipse.rmi.interfaces.GGeneralErrorClazz.ErrorQuery;
 
 public class remoteMethodsTest {
 
@@ -25,21 +26,16 @@ public class remoteMethodsTest {
 
 	@Test
 	public void test() {
-//		SearchRequest sr = SearchRequest.newBuilder().setQuery("test_query")
-//				.setPageNumber(10)
-//				.setResultPerPage(20)
-//				.build();
-//		try{
-//			String serverUrl = "rmi://127.0.0.1/rmiServer";
-//			IRemoteMethod s = (IRemoteMethod)Naming.lookup(serverUrl);
-//			
-//			for(String str : s.getErrorRelationUrl(sr).getUrlsList()){
-//				System.out.println(str);
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//		
+
+		ErrorQuery q = ErrorQuery.newBuilder().setLanguageName("c").setLibraryName("test").setMethodName("test_method").setErrorName("test_erro").build();
+
+		try{
+			String serverUrl = "rmi://127.0.0.1:1099/rmiServer";
+			IRemoteMethod s = (IRemoteMethod)Naming.lookup(serverUrl);
+			s.getErrorSolution(q);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

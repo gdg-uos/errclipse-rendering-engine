@@ -2,6 +2,8 @@ package com.errclipse.orm.connector;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.channels.SeekableByteChannel;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -47,10 +49,10 @@ public class ConnectToORM {
     	int _id = -1;
     	SqlSession session = sqlSessionFactory.openSession();
     	try{
-    		_id = session.selectOne("selectLang", lib_desc);
+    		_id = session.selectOne("selectLib", lib_desc);
     	}catch(NullPointerException e){
     		LibraryBin bin = new LibraryBin(level_key,lib_desc,0);
-    		session.insert("insertLang", bin);
+    		session.insert("insertLib", bin);
     		_id = bin.getLib_id();
     	}finally{
     		System.out.println(_id);
@@ -64,10 +66,10 @@ public class ConnectToORM {
 		int _id = -1;
     	SqlSession session = sqlSessionFactory.openSession();
     	try{
-    		_id = session.selectOne("selectLang", method_desc);
+    		_id = session.selectOne("selectMethod", method_desc);
     	}catch(NullPointerException e){
     		MethodBin bin = new MethodBin(level_key,method_desc,0);
-    		session.insert("insertLang", bin);
+    		session.insert("insertMethod", bin);
     		_id = bin.getMethod_id();
     	}finally{
     		System.out.println(_id);
@@ -81,10 +83,10 @@ public class ConnectToORM {
 		int _id = -1;
     	SqlSession session = sqlSessionFactory.openSession();
     	try{
-    		_id = session.selectOne("selectLang", error_desc);
+    		_id = session.selectOne("selectError", error_desc);
     	}catch(NullPointerException e){
     		ErrorBin bin = new ErrorBin(level_key,error_desc,0);
-    		session.insert("insertLang", bin);
+    		session.insert("insertError", bin);
     		_id = bin.getError_id();
     	}finally{
     		System.out.println(_id);
@@ -94,9 +96,19 @@ public class ConnectToORM {
         return _id;
 	}
 
-	public List<String> getSolutions(String key) {
-		// TODO Auto-generated method stub
-		return null;
+	public static List<SolutionResultBin> getSolutions(String level_key) {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<SolutionResultBin> solutionList = null;
+		System.out.println(level_key);
+		try{
+			solutionList = session.selectList("selectSolution", level_key);
+		}catch(NullPointerException e){
+			
+		}finally{
+			session.commit();
+			session.close();
+		}
+		return solutionList;
 	}
 	
 }

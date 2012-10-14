@@ -3,7 +3,7 @@ package com.errclipse.orm.bin;
 public class SolutionBin {
 	String level_key;
 	int solution_id;
-	String solution_note;
+	String solution_desc;
 	float global_score;
 	int local_score;
 	public String getLevel_key() {
@@ -18,11 +18,11 @@ public class SolutionBin {
 	public void setSolution_id(int solution_id) {
 		this.solution_id = solution_id;
 	}
-	public String getSolution_note() {
-		return solution_note;
+	public String getSolution_desc() {
+		return solution_desc;
 	}
-	public void setSolution_note(String solution_note) {
-		this.solution_note = solution_note;
+	public void setSolution_desc(String solution_desc) {
+		this.solution_desc = solution_desc;
 	}
 	public float getGlobal_score() {
 		return global_score;
