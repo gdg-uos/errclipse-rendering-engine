@@ -6,6 +6,13 @@ public class SolutionBin {
 	String solution_desc;
 	float global_score;
 	int local_score;
+	
+	public SolutionBin(String level_key, String desc){
+		this.level_key = level_key;
+		this.solution_desc = desc;
+		this.global_score = 0;
+		this.local_score = 0;
+	}
 	public String getLevel_key() {
 		return level_key;
 	}

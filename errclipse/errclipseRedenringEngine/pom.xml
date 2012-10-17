@@ -6,6 +6,7 @@
 
     <groupId>errclipseRedenringEngine</groupId>
     <artifactId>errclipseRedenringEngine</artifactId>
+    <packaging>jar</packaging>
     <version>1.0</version>
     <dependencies>
         <dependency>
@@ -41,5 +42,16 @@
 				</configuration>
     		</plugin>
     	</plugins>
+    	<resources>
+    		<resource>
+    			<directory>src/main/java</directory>
+    		</resource>
+    		<resource>
+    			<directory>src/main/java</directory>
+    			<excludes>
+    				<exclude>**/*.java</exclude>
+    			</excludes>
+    		</resource>
+    	</resources>
     </build>
 </project>

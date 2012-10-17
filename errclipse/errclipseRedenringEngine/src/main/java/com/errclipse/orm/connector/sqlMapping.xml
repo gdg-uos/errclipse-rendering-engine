@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="sqlMapping">
+	<insert id="insertLang" parameterType="com.errclipse.orm.bin.LangBin"
+		keyProperty="language_id" useGeneratedKeys="true" keyColumn="language_id">
+		INSERT IGNORE INTO language (language_desc,solution_count ) values
+		(#{language_desc}, #{solution_count} );
+		<selectKey keyProperty="language_id" resultType="int" order="AFTER">
+			select last_insert_id();
+		</selectKey>
+	</insert>
+	<insert id="insertLib" parameterType="com.errclipse.orm.bin.LibraryBin"
+		keyProperty="library_id" useGeneratedKeys="true" keyColumn="library_id">
+		INSERT IGNORE INTO library (library_desc, level_key, library_id,
+		solution_count ) values (#{library_desc}, #{level_key}, #{library_id},
+		#{solution_count} );
+		<selectKey keyProperty="library_id" resultType="int" order="AFTER">
+			select last_insert_id();
+		</selectKey>
+	</insert>
+	<insert id="insertMethod" parameterType="com.errclipse.orm.bin.MethodBin"
+		keyProperty="method_id" useGeneratedKeys="true">
+		INSERT IGNORE INTO method (method_desc, level_key, method_id,
+		solution_count ) values (#{method_desc}, #{level_key}, #{method_id},
+		#{solution_count} );
+		<selectKey keyProperty="method_id" resultType="int" order="AFTER">
+			select last_insert_id();
+		</selectKey>
+	</insert>
+	<insert id="insertError" parameterType="com.errclipse.orm.bin.ErrorBin"
+		keyProperty="error_id" useGeneratedKeys="true">
+		INSERT IGNORE INTO error (error_desc, level_key, error_id,
+		solution_count ) values (#{error_desc}, #{level_key}, #{error_id},
+		#{solution_count} );
+		<selectKey keyProperty="error_id" resultType="int" order="AFTER">
+			select last_insert_id();
+		</selectKey>
+	</insert>
+	<insert id="insertSolution" parameterType="com.errclipse.orm.bin.SolutionBin"
+		keyProperty="solution_id" useGeneratedKeys="true">
+		INSERT IGNORE INTO solution (level_key, solution_id, solution_desc,
+		global_score,local_score) values (#{level_key}, #{solution_id},
+		#{solution_desc}, #{global_score},#{local_score});
+		<selectKey keyProperty="solution_id" resultType="int" order="AFTER">
+			select last_insert_id();
+		</selectKey>
+	</insert>
+	<select id="selectLang" parameterType="String" resultType="int">
+		SELECT (language_id) FROM language WHERE language_desc =
+		#{language_desc};
+	</select>
+	<select id="selectLib" parameterType="String" resultType="int">
+		SELECT
+		(library_id) FROM library WHERE library_desc = #{library_desc};
+	</select>
+	<select id="selectMethod" parameterType="String" resultType="int">
+		SELECT (method_id) FROM method WHERE method_desc = #{method_desc};
+	</select>
+	<select id="selectError" parameterType="String" resultType="int">
+		SELECT (error_id) FROM error WHERE error_desc = #{error_desc};
+	</select>
+	<select id="selectSolution" parameterType="String"
+		resultType="com.errclipse.orm.bin.SolutionResultBin">
+		SELECT solution_id, solution_desc FROM solution WHERE
+		level_key = "${value}";
+	</select>
+</mapper>
