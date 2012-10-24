@@ -61,7 +61,7 @@ public class RemoteMethods extends UnicastRemoteObject implements IRemoteMethod 
 	@Override
 	public void recommendSolution(String level_key, int id)
 			throws RemoteException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -90,6 +90,8 @@ public class RemoteMethods extends UnicastRemoteObject implements IRemoteMethod 
 		
 		_id = String.format("%03d", ConnectToORM.getErrorID(levelKeyBuilder.toString(), query.getErrorName()));
 		levelKeyBuilder.append(_id);
+		
+		logger.info(String.format("get solution levle id : %s", levelKeyBuilder.toString()));
 		
 		return levelKeyBuilder.toString();
 	}

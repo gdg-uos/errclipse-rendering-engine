@@ -67,4 +67,5 @@
 		SELECT solution_id, solution_desc FROM solution WHERE
 		level_key = "${value}";
 	</select>
+	<update id="increaseSolutionScore"></update>
 </mapper>
