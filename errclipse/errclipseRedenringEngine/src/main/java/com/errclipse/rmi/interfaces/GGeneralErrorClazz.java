@@ -704,11 +704,15 @@ public final class GGeneralErrorClazz {
     boolean hasDecs();
     String getDecs();
     
-    // required int32 local_score = 2;
+    // required int32 solution_id = 2;
+    boolean hasSolutionId();
+    int getSolutionId();
+    
+    // required int32 local_score = 3;
     boolean hasLocalScore();
     int getLocalScore();
     
-    // required float global_score = 3;
+    // required float global_score = 4;
     boolean hasGlobalScore();
     float getGlobalScore();
   }
@@ -773,21 +777,31 @@ public final class GGeneralErrorClazz {
       }
     }
     
-    // required int32 local_score = 2;
-    public static final int LOCAL_SCORE_FIELD_NUMBER = 2;
+    // required int32 solution_id = 2;
+    public static final int SOLUTION_ID_FIELD_NUMBER = 2;
+    private int solutionId_;
+    public boolean hasSolutionId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getSolutionId() {
+      return solutionId_;
+    }
+    
+    // required int32 local_score = 3;
+    public static final int LOCAL_SCORE_FIELD_NUMBER = 3;
     private int localScore_;
     public boolean hasLocalScore() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     public int getLocalScore() {
       return localScore_;
     }
     
-    // required float global_score = 3;
-    public static final int GLOBAL_SCORE_FIELD_NUMBER = 3;
+    // required float global_score = 4;
+    public static final int GLOBAL_SCORE_FIELD_NUMBER = 4;
     private float globalScore_;
     public boolean hasGlobalScore() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     public float getGlobalScore() {
       return globalScore_;
@@ -795,6 +809,7 @@ public final class GGeneralErrorClazz {
     
     private void initFields() {
       decs_ = "";
+      solutionId_ = 0;
       localScore_ = 0;
       globalScore_ = 0F;
     }
@@ -804,6 +819,10 @@ public final class GGeneralErrorClazz {
       if (isInitialized != -1) return isInitialized == 1;
       
       if (!hasDecs()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSolutionId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -826,10 +845,13 @@ public final class GGeneralErrorClazz {
         output.writeBytes(1, getDecsBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, localScore_);
+        output.writeInt32(2, solutionId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeFloat(3, globalScore_);
+        output.writeInt32(3, localScore_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeFloat(4, globalScore_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -846,11 +868,15 @@ public final class GGeneralErrorClazz {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, localScore_);
+          .computeInt32Size(2, solutionId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, globalScore_);
+          .computeInt32Size(3, localScore_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(4, globalScore_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -978,10 +1004,12 @@ public final class GGeneralErrorClazz {
         super.clear();
         decs_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        localScore_ = 0;
+        solutionId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        globalScore_ = 0F;
+        localScore_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
+        globalScore_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       
@@ -1027,9 +1055,13 @@ public final class GGeneralErrorClazz {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.localScore_ = localScore_;
+        result.solutionId_ = solutionId_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
+        }
+        result.localScore_ = localScore_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
         }
         result.globalScore_ = globalScore_;
         result.bitField0_ = to_bitField0_;
@@ -1051,6 +1083,9 @@ public final class GGeneralErrorClazz {
         if (other.hasDecs()) {
           setDecs(other.getDecs());
         }
+        if (other.hasSolutionId()) {
+          setSolutionId(other.getSolutionId());
+        }
         if (other.hasLocalScore()) {
           setLocalScore(other.getLocalScore());
         }
@@ -1063,6 +1098,10 @@ public final class GGeneralErrorClazz {
       
       public final boolean isInitialized() {
         if (!hasDecs()) {
+          
+          return false;
+        }
+        if (!hasSolutionId()) {
           
           return false;
         }
@@ -1107,11 +1146,16 @@ public final class GGeneralErrorClazz {
             }
             case 16: {
               bitField0_ |= 0x00000002;
+              solutionId_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
               localScore_ = input.readInt32();
               break;
             }
-            case 29: {
-              bitField0_ |= 0x00000004;
+            case 37: {
+              bitField0_ |= 0x00000008;
               globalScore_ = input.readFloat();
               break;
             }
@@ -1157,43 +1201,64 @@ public final class GGeneralErrorClazz {
         onChanged();
       }
       
-      // required int32 local_score = 2;
+      // required int32 solution_id = 2;
+      private int solutionId_ ;
+      public boolean hasSolutionId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getSolutionId() {
+        return solutionId_;
+      }
+      public Builder setSolutionId(int value) {
+        bitField0_ |= 0x00000002;
+        solutionId_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearSolutionId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        solutionId_ = 0;
+        onChanged();
+        return this;
+      }
+      
+      // required int32 local_score = 3;
       private int localScore_ ;
       public boolean hasLocalScore() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       public int getLocalScore() {
         return localScore_;
       }
       public Builder setLocalScore(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         localScore_ = value;
         onChanged();
         return this;
       }
       public Builder clearLocalScore() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         localScore_ = 0;
         onChanged();
         return this;
       }
       
-      // required float global_score = 3;
+      // required float global_score = 4;
       private float globalScore_ ;
       public boolean hasGlobalScore() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public float getGlobalScore() {
         return globalScore_;
       }
       public Builder setGlobalScore(float value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         globalScore_ = value;
         onChanged();
         return this;
       }
       public Builder clearGlobalScore() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         globalScore_ = 0F;
         onChanged();
         return this;
@@ -1868,12 +1933,13 @@ public final class GGeneralErrorClazz {
       "\n\025errorDefinition.proto\022\034com.errclipse.r" +
       "mi.interfaces\"b\n\nErrorQuery\022\025\n\rlanguage_" +
       "name\030\001 \002(\t\022\024\n\014library_name\030\002 \002(\t\022\023\n\013meth" +
-      "od_name\030\003 \002(\t\022\022\n\nerror_name\030\004 \002(\t\"C\n\010Sol" +
-      "ution\022\014\n\004decs\030\001 \002(\t\022\023\n\013local_score\030\002 \002(\005" +
-      "\022\024\n\014global_score\030\003 \002(\002\"m\n\022SolutionResult" +
-      "List\022\030\n\020is_solution_find\030\001 \002(\010\022=\n\rsoluti" +
-      "on_list\030\002 \003(\0132&.com.errclipse.rmi.interf" +
-      "aces.SolutionB\024B\022GGeneralErrorClazz"
+      "od_name\030\003 \002(\t\022\022\n\nerror_name\030\004 \002(\t\"X\n\010Sol" +
+      "ution\022\014\n\004decs\030\001 \002(\t\022\023\n\013solution_id\030\002 \002(\005" +
+      "\022\023\n\013local_score\030\003 \002(\005\022\024\n\014global_score\030\004 " +
+      "\002(\002\"m\n\022SolutionResultList\022\030\n\020is_solution" +
+      "_find\030\001 \002(\010\022=\n\rsolution_list\030\002 \003(\0132&.com" +
+      ".errclipse.rmi.interfaces.SolutionB\024B\022GG" +
+      "eneralErrorClazz"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1893,7 +1959,7 @@ public final class GGeneralErrorClazz {
           internal_static_com_errclipse_rmi_interfaces_Solution_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_errclipse_rmi_interfaces_Solution_descriptor,
-              new java.lang.String[] { "Decs", "LocalScore", "GlobalScore", },
+              new java.lang.String[] { "Decs", "SolutionId", "LocalScore", "GlobalScore", },
               com.errclipse.rmi.interfaces.GGeneralErrorClazz.Solution.class,
               com.errclipse.rmi.interfaces.GGeneralErrorClazz.Solution.Builder.class);
           internal_static_com_errclipse_rmi_interfaces_SolutionResultList_descriptor =

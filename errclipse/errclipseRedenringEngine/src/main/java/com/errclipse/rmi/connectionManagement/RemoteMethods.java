@@ -59,10 +59,10 @@ public class RemoteMethods extends UnicastRemoteObject implements IRemoteMethod 
 	}
 
 	@Override
-	public void recommendSolution(String level_key, int id)
+	public void recommendSolution(int id)
 			throws RemoteException {
-		
-		
+		ConnectToORM.recommendSolution(id);
+		logger.info(String.format("solution recommended id = %d", id ));		
 	}
 
 	@Override

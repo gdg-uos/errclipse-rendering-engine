@@ -143,4 +143,10 @@ public class ConnectToORM {
 		session.close();
 		return pk;
 	}
+	public static void recommendSolution(int solution_id){
+		SqlSession session = sqlSessionFactory.openSession();
+		session.update("increaseSolutionScore",solution_id);
+		session.commit();
+		session.close();
+	}
 }
