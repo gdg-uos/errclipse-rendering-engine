@@ -48,6 +48,7 @@
 			select last_insert_id();
 		</selectKey>
 	</insert>
+	
 	<select id="selectLang" parameterType="String" resultType="int">
 		SELECT (language_id) FROM language WHERE language_desc =
 		#{language_desc};
@@ -67,7 +68,39 @@
 		SELECT * FROM solution WHERE
 		level_key = "${value}";
 	</select>
+	
 	<update id="increaseSolutionScore" parameterType="int">
-		UPDATE solution	SET local_score = local_score+1 WHERE solution_id=#{solution_id};
+		UPDATE solution
+		SET local_score = local_score+1 WHERE solution_id=#{solution_id};
 	</update>
+
+	<sql id="createErrorTable">
+		CREATE TABLE `error` (
+		`error_desc` varchar(45) NOT NULL,
+		`level_key` char(40) NOT NULL
+		COMMENT 'LANG_ID + LIB_ID + METHOD_ID',
+		`error_id` int(11) NOT NULL
+		AUTO_INCREMENT COMMENT 'this is error id',
+		`solution_count` int(11) NOT
+		NULL COMMENT 'Total count of dangled
+		solution''s error_count',
+		PRIMARY
+		KEY (`error_desc`),
+		UNIQUE KEY `error_id_UNIQUE` (`error_id`)
+		)
+		ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='fourth
+		level dir.\nschema for error.\n'
+	</sql>
+	<sql id="createLanguageTable">
+		CREATE TABLE `language` (
+		`language_desc` varchar(45) NOT NULL,
+		`language_id` int(11) NOT NULL AUTO_INCREMENT,
+		`solution_count` bigint(20) NOT NULL COMMENT 'Total count of dangled library''s
+		error_count',
+		PRIMARY KEY (`language_id`),
+		UNIQUE KEY `desc_UNIQUE` (`language_desc`)
+		) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='top
+		level dir.\nschema for language.'
+	</sql>
+
 </mapper>
