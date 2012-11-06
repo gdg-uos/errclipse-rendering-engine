@@ -68,8 +68,6 @@
 		level_key = "${value}";
 	</select>
 	<update id="increaseSolutionScore" parameterType="int">
-		UPDATE solution
-		SET local_score = local_score+1 WHERE
-		solution_id={#solution_id};
+		UPDATE solution	SET local_score = local_score+1 WHERE solution_id=#{solution_id};
 	</update>
 </mapper>

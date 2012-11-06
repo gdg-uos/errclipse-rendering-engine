@@ -51,6 +51,7 @@ public class RemoteMethods extends UnicastRemoteObject implements IRemoteMethod 
 				result.addSolutionList( 
 						Solution.newBuilder()
 						.setDecs(list.get(i).getSolution_desc())
+						.setSolutionId(list.get(i).getSolution_id())
 						.setGlobalScore(list.get(i).getGlobal_score())
 						.setLocalScore(list.get(i).getLocal_score())
 						.build() );
