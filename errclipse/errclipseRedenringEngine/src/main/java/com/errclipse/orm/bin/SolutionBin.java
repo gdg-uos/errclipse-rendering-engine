@@ -7,6 +7,7 @@ public class SolutionBin {
 	float global_score;
 	int local_score;
 	
+	public SolutionBin(){};
 	public SolutionBin(String level_key, String desc){
 		this.level_key = level_key;
 		this.solution_desc = desc;

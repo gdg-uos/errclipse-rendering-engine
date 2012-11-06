@@ -704,7 +704,7 @@ public final class GGeneralErrorClazz {
     boolean hasDecs();
     String getDecs();
     
-    // required int32 solution_id = 2;
+    // optional int32 solution_id = 2;
     boolean hasSolutionId();
     int getSolutionId();
     
@@ -777,7 +777,7 @@ public final class GGeneralErrorClazz {
       }
     }
     
-    // required int32 solution_id = 2;
+    // optional int32 solution_id = 2;
     public static final int SOLUTION_ID_FIELD_NUMBER = 2;
     private int solutionId_;
     public boolean hasSolutionId() {
@@ -819,10 +819,6 @@ public final class GGeneralErrorClazz {
       if (isInitialized != -1) return isInitialized == 1;
       
       if (!hasDecs()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasSolutionId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1101,10 +1097,6 @@ public final class GGeneralErrorClazz {
           
           return false;
         }
-        if (!hasSolutionId()) {
-          
-          return false;
-        }
         if (!hasLocalScore()) {
           
           return false;
@@ -1201,7 +1193,7 @@ public final class GGeneralErrorClazz {
         onChanged();
       }
       
-      // required int32 solution_id = 2;
+      // optional int32 solution_id = 2;
       private int solutionId_ ;
       public boolean hasSolutionId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -1934,7 +1926,7 @@ public final class GGeneralErrorClazz {
       "mi.interfaces\"b\n\nErrorQuery\022\025\n\rlanguage_" +
       "name\030\001 \002(\t\022\024\n\014library_name\030\002 \002(\t\022\023\n\013meth" +
       "od_name\030\003 \002(\t\022\022\n\nerror_name\030\004 \002(\t\"X\n\010Sol" +
-      "ution\022\014\n\004decs\030\001 \002(\t\022\023\n\013solution_id\030\002 \002(\005" +
+      "ution\022\014\n\004decs\030\001 \002(\t\022\023\n\013solution_id\030\002 \001(\005" +
       "\022\023\n\013local_score\030\003 \002(\005\022\024\n\014global_score\030\004 " +
       "\002(\002\"m\n\022SolutionResultList\022\030\n\020is_solution" +
       "_find\030\001 \002(\010\022=\n\rsolution_list\030\002 \003(\0132&.com" +

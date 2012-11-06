@@ -17,7 +17,6 @@ import com.errclipse.orm.bin.LangBin;
 import com.errclipse.orm.bin.LibraryBin;
 import com.errclipse.orm.bin.MethodBin;
 import com.errclipse.orm.bin.SolutionBin;
-import com.errclipse.orm.bin.SolutionResultBin;
 
 public class ConnectToORM {
 
@@ -118,13 +117,14 @@ public class ConnectToORM {
 		return _id;
 	}
 
-	public static List<SolutionResultBin> getSolutions(String level_key) {
+	public static List<SolutionBin> getSolutions(String level_key) {
 		SqlSession session = sqlSessionFactory.openSession();
-		List<SolutionResultBin> solutionList = null;
+		List<SolutionBin> solutionList = null;
 		System.out.println(level_key);
 		try{
 			solutionList = session.selectList("selectSolution", level_key);
 		}catch(NullPointerException e){
+			System.out.println("error null list");
 
 		}finally{
 			session.commit();

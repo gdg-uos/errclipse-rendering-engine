@@ -9,7 +9,7 @@ message  ErrorQuery{
 }
 message Solution{
 	required string decs = 1;
-	required int32 solution_id = 2;
+	optional int32 solution_id = 2;
 	required int32 local_score = 3;
 	required float global_score = 4;
 }

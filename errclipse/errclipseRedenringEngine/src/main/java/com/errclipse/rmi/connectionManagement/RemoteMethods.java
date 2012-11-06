@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.errclipse.orm.bin.SolutionResultBin;
+import com.errclipse.orm.bin.SolutionBin;
 import com.errclipse.orm.connector.ConnectToORM;
 import com.errclipse.rmi.interfaces.GGeneralErrorClazz.ErrorQuery;
 import com.errclipse.rmi.interfaces.GGeneralErrorClazz.Solution;
@@ -27,7 +27,7 @@ public class RemoteMethods extends UnicastRemoteObject implements IRemoteMethod 
 		
 		StringBuilder levelKeyBuilder = new StringBuilder();
 		SolutionResultList.Builder result = SolutionResultList.newBuilder();
-		List<SolutionResultBin> list;
+		List<SolutionBin> list;
 		// get language_id 
 		String _id = String.format("%03d", ConnectToORM.getLangID(query.getLanguageName()));
 		levelKeyBuilder.append(_id);
@@ -48,10 +48,11 @@ public class RemoteMethods extends UnicastRemoteObject implements IRemoteMethod 
 			logger.info(String.format("we found %d solution",list.size()));
 			result.setIsSolutionFind(true);
 			for(int i=0;i<list.size();i++){
-				result.addSolutionList( Solution.newBuilder()
+				result.addSolutionList( 
+						Solution.newBuilder()
 						.setDecs(list.get(i).getSolution_desc())
-						.setGlobalScore(0)
-						.setLocalScore(0)
+						.setGlobalScore(list.get(i).getGlobal_score())
+						.setLocalScore(list.get(i).getLocal_score())
 						.build() );
 			}
 		}	
@@ -91,7 +92,7 @@ public class RemoteMethods extends UnicastRemoteObject implements IRemoteMethod 
 		_id = String.format("%03d", ConnectToORM.getErrorID(levelKeyBuilder.toString(), query.getErrorName()));
 		levelKeyBuilder.append(_id);
 		
-		logger.info(String.format("get solution levle id : %s", levelKeyBuilder.toString()));
+		logger.info(String.format("get solution level id : %s", levelKeyBuilder.toString()));
 		
 		return levelKeyBuilder.toString();
 	}

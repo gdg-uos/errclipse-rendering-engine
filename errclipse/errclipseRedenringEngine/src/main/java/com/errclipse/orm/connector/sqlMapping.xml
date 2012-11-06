@@ -63,12 +63,13 @@
 		SELECT (error_id) FROM error WHERE error_desc = #{error_desc};
 	</select>
 	<select id="selectSolution" parameterType="String"
-		resultType="com.errclipse.orm.bin.SolutionResultBin">
-		SELECT solution_id, solution_desc FROM solution WHERE
+		resultType="com.errclipse.orm.bin.SolutionBin">
+		SELECT * FROM solution WHERE
 		level_key = "${value}";
 	</select>
 	<update id="increaseSolutionScore" parameterType="int">
-		UPDATE solution SET local_score = local_score+1 WHERE
+		UPDATE solution
+		SET local_score = local_score+1 WHERE
 		solution_id={#solution_id};
 	</update>
 </mapper>
