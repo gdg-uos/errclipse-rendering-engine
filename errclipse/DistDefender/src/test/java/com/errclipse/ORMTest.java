@@ -1,16 +1,17 @@
 package com.errclipse;
 
 
-import static org.junit.Assert.*;
-
 import java.util.List;
+
+import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.errclipse.ORM.*;
-import com.errclipse.ORM.bin.ChildPropBin;
+import com.errclipse.child.ORM.ConnectORM;
+import com.errclipse.child.property.ChildPropertyBin;
+import com.errclipse.child.property.ChildPropertyHandler;
 
 public class ORMTest {
 
@@ -24,10 +25,11 @@ public class ORMTest {
 
 	@Test
 	public void test() {
-		List<ChildPropBin> list = ConnectORM.getChildProp(); 
-		for(ChildPropBin bin : list){
-			System.out.println(bin.getChild_id());
-		}
+		List<ChildPropertyBin> list = ConnectORM.getChildProp(); 
+		System.out.println(list.size());
+		ChildPropertyBin prop = new ChildPropertyBin("kdbc", "test_url2", "test_toori2", "test_passwd2");
+		boolean isSuccess = ChildPropertyHandler.addNewChild(prop);
+		Assert.assertEquals(false, isSuccess);
 	}
 
 }
