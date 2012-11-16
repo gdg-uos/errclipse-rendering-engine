@@ -1,10 +1,13 @@
 package kr.gdg.uos.errclipse;
 
+import it.sauronsoftware.cron4j.Scheduler;
+
 import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
 
 import kr.gdg.uos.errclipse.HttpRequest.HttpRequest;
+import kr.gdg.uos.errclipse.properties.PropertyController;
 import kr.gdg.uos.errclipse.works.LocalData;
 
 
@@ -22,14 +25,38 @@ public class Main {
 			
 		}
 		
-		LocalData localData = new LocalData();
+		Scheduler s = new Scheduler();
 		
-		try {
-			localData.getDataFromMySQL();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PropertyController p = PropertyController.getInstance();
+		
+		String period = p.getPropertyValues("runnable_time");
+		
+		s.schedule(period, new Runnable() {
+			
+			@Override
+			public void run() {
+				LocalData localData = new LocalData();
+				
+				try {
+					localData.getDataFromMySQL();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+		
+		s.start();
+		
+		
+		
+		
+		
 	}
 	
 	 
