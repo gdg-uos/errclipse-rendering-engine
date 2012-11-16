@@ -2,6 +2,7 @@ package kr.uoscs.errclipse;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +35,9 @@ import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.part.ViewPart;
 
+import com.errclipse.rmi.RmiMethods;
+import com.errclipse.rmi.interfaces.GGeneralErrorClazz.Solution;
+
 public class HelperView extends ViewPart {
 	private Process ps;
 	private Button exe4;
@@ -50,14 +54,16 @@ public class HelperView extends ViewPart {
 	private Action mGoogleSearchAction;
 	private Table table;
 	private Image sendImg;
+	private Composite top;
+	private ImageLoader loader;
 	
 	public HelperView() {
 		
 	}
 
 	public void createPartControl(Composite parent) {
-		ImageLoader loader = ImageLoader.getILoader();
-		Composite top = new Composite(parent, SWT.BORDER);
+		loader = ImageLoader.getILoader();
+		top = new Composite(parent, SWT.BORDER);
 		
 		top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		GridLayout layout = new GridLayout();
@@ -83,21 +89,6 @@ public class HelperView extends ViewPart {
 				library = "test";
 				method = "test_mthod";
 				error = "test_erro4";
-				/*
-				Location location = Platform.getInstanceLocation();
-				String logpath = location.getURL().getPath()+".metadata/errclipse_log";
-				StringBuffer s = new StringBuffer();
-				try{
-					File file = new File(logpath);
-					InputStream is = new FileInputStream(file);
-					int c;
-					while((c = is.read()) != -1)
-						s.append((char)c);
-					is.close();
-				}catch(Exception e){
-					System.out.println(e.toString());
-				}
-				*/
 				
 				String s = "";
 				
@@ -150,33 +141,31 @@ public class HelperView extends ViewPart {
 				method = result2;
 				error = result3;
 			
-				text1.setText(library);
-				text3.setText(error);
-				text2.setText(method);
+				text1.setText(error);
+				text2.setText(library);
+				text3.setText(method);
 				
-				//List<Solution> rr = null;
-				//try {
-					//rr = RmiMethods.searchSolution(language, library, method, error);
-				//} catch (Exception e) {
+				// get Solution from rmi
+				List<Solution> rr = null;
+				try {
+					rr = RmiMethods.searchSolution(language, library, method, error);
+				} catch (Exception e) {
 					/*String key = "";
 					key = RmiMethods.getSolutionLevelKey(language, library, method, error);
 					System.out.println(key);
 					RmiMethods.insertNewSolution(key, "inserted solution");*/
-				//}
-				/*
+				}
+				
 				try{
 					for(int i=0; i<rr.size();i++){
 						Solution r = rr.get(i);
-						list1.add(r.getDecs(), i);
+						TableItem item = new TableItem(table, SWT.NULL);
+						item.setText(r.getDecs());
 					}
-					text2.setText("Method Name : "+method);
-					text3.setText("Error Name : "+error);
 				}catch(NullPointerException e){
 					text1.setText("no return");
-					text2.setText("Method Name : "+method);
-					text3.setText("Error Name : "+error);
 				}
-				*/
+				
 			}
 		};
 		
@@ -185,7 +174,18 @@ public class HelperView extends ViewPart {
 		
 		mGoogleSearchAction = new Action("Google Search"){
 			public void run(){
-				text1.setText("goo");
+				if(!text1.getText().equals("")){
+					String searchString = "java " + text2.getText() + " " + text3.getText() + " " + text1.getText();
+ 					
+					GoogleQuery gq = new GoogleQuery();
+					List<GoogleResult> res = gq.query(searchString , 8, 0);
+					table.removeAll();
+					for(int i = 0 ; i < res.size() ; i++)
+					{
+						TableItem item = new TableItem(table, SWT.NULL);
+						item.setText(new String[]{res.get(i).getUrl()});
+					}
+				}
 			}
 		};
 		
@@ -216,9 +216,9 @@ public class HelperView extends ViewPart {
 		data.heightHint = 100;
 		table.setLayoutData(data);
 		
-		String[] columnName = new String[]{"Solution", "Votes"};
-		int[] columnWidths = new int[]{200, 50};
-		int[] columnAlignments = new int[]{SWT.LEFT, SWT.CENTER};
+		String[] columnName = new String[]{"Solution"/*, "Votes"*/};
+		int[] columnWidths = new int[]{200/*, 50*/};
+		int[] columnAlignments = new int[]{SWT.LEFT/*, SWT.CENTER*/};
 		
 		for(int i = 0 ; i < columnName.length ; i++){
 			TableColumn tableColumn = new TableColumn(table, columnAlignments[i]);
@@ -226,12 +226,13 @@ public class HelperView extends ViewPart {
 			tableColumn.setWidth(columnWidths[i]);
 		}
 		
+		/*
 		TableItem item1 = new TableItem(table, SWT.NULL);
-		item1.setText(new String[]{"http://www.naver.com", "10"});
+		item1.setText(new String[]{"sdafadsfalkdsjflakjewlfijrewociaje"});
 		TableItem item2 = new TableItem(table, SWT.NULL);
-		item2.setText(new String[]{"http://www.daum.net", "10"});
+		item2.setText(new String[]{"http://www.daum.net"});
 		TableItem item3 = new TableItem(table, SWT.NULL);
-		item3.setText(new String[]{"http://www.nate.com", "10"});
+		item3.setText(new String[]{"slkdjflakjdsflkansd http://www.nate.com "});
 		TableItem item4 = new TableItem(table, SWT.NULL);
 		item4.setText(new String[]{"http://lol.inven.co.kr", "10"});
 		TableItem item5 = new TableItem(table, SWT.NULL);
@@ -241,7 +242,7 @@ public class HelperView extends ViewPart {
 		TableItem item7 = new TableItem(table, SWT.NULL);
 		item7.setText(new String[]{"http://fow.kr", "10"});
 		TableItem item8 = new TableItem(table, SWT.NULL);
-		item8.setText(new String[]{"http://fow.kr", "10"});
+		item8.setText(new String[]{"http://fow.kr", "10"});*/
 		
 		table.addMouseListener(new MouseListener() {
 			public void mouseUp(MouseEvent e) {
@@ -256,10 +257,13 @@ public class HelperView extends ViewPart {
 					try {
 						for(int i = 0 ; i < selected.length; i++){
 							if(!confirmUrl(selected[i].getText(0)).equals("dialog")){
-								PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(new URL(selected[i].getText(0)));
-							}
-							else{
-								
+								text4.setText(selected[i].getText());
+								PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(new URL(confirmUrl(selected[i].getText(0))));
+							}else{
+								text4.setText(selected[i].getText());
+								/*window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+								MessageDialog md = new MessageDialog(window.getShell(), "ErrClipse", loader.loadImage("sample.gif", top.getDisplay()), selected[i].getText(0), 0, new String[]{"Close"}, 0);
+								md.open();*/
 							}
 						}
 					} catch (PartInitException e1) {
@@ -272,7 +276,7 @@ public class HelperView extends ViewPart {
 				}
 			}
 		});
-		
+
 		Composite clabel = new Composite(top, SWT.NONE);
 		clabel.setLayout(new RowLayout());
 		
@@ -311,6 +315,12 @@ public class HelperView extends ViewPart {
 	    gridData.grabExcessVerticalSpace = true;
 	    gridData.grabExcessHorizontalSpace = true;
 	    text4.setLayoutData(gridData);
+	    
+	    text4.addMouseListener(new MouseListener() {
+			public void mouseUp(MouseEvent e) {}
+			public void mouseDown(MouseEvent e) {text4.selectAll();}
+			public void mouseDoubleClick(MouseEvent e) {}
+		});
 	}
 
 
@@ -318,11 +328,9 @@ public class HelperView extends ViewPart {
 		public void widgetSelected(SelectionEvent event) {
 			try {
 				if (event.getSource() == exe4) {
-					/*
-					 * String key = ""; key =
-					 * RmiMethods.getSolutionLevelKey(language, library, method, error); System.out.println(key);
-					 * RmiMethods.insertNewSolution(key, text4.getText());
-					 */
+					 String key = ""; key =
+					 RmiMethods.getSolutionLevelKey(language, library, method, error); System.out.println(key);
+					 RmiMethods.insertNewSolution(key, text4.getText());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
