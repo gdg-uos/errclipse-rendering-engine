@@ -2,15 +2,23 @@ errclipse-rendering-engine
 ==========================
 
 = Notice = 
+
 We're working on new version of errclipse, will be commit ASAP!
 
 features
+
 > svn integration
+
 > light server daemon 
+
 > fixed Client UI
+
 > etc..
 
-= Errclipse =
+
+==========================
+
+= What is Errclipse? =
 
 Errclipse is Eclipse error rendering engine. 
 
